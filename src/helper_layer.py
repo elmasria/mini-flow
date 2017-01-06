@@ -58,3 +58,15 @@ def forward_pass_layer(output_layer, sorted_layers):
         n.forward()
 
     return output_layer.value
+
+def forward_pass_layer_graph(graph):
+    """
+    Performs a forward pass through a list of sorted Layers.
+
+    Arguments:
+
+        `graph`: The result of calling `topological_sort`.
+    """
+    # Forward pass
+    for n in graph:
+        n.forward()

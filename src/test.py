@@ -109,3 +109,23 @@ output = forward_pass_layer(g, graph)
 
 logging.info(output)
 print(output)
+
+# Cost
+from mse import MSE
+
+logging.info("Cost")
+print("Cost")
+
+y, a = InputLayer(), InputLayer()
+cost = MSE(y, a)
+
+y_ = np.array([1, 2, 3])
+a_ = np.array([4.5, 5, 10])
+
+feed_dict = {y: y_, a: a_}
+graph = topological_sort_layer(feed_dict)
+# forward pass
+forward_pass_layer_graph(graph)
+
+logging.info(cost.value)
+print(cost.value)
