@@ -1,6 +1,7 @@
 import numpy as np
 from layer import Layer
 
+
 class MSE(Layer):
 
     def __init__(self, y, a):
@@ -27,7 +28,17 @@ class MSE(Layer):
         y = self.inbound_layers[0].value.reshape(-1, 1)
         a = self.inbound_layers[1].value.reshape(-1, 1)
         # TODO: your code here
-        m = self.inbound_layers[0].value.shape[0]
+        self.m = self.inbound_layers[0].value.shape[0]
 
-        diff = y - a
-        self.value = np.mean(diff**2)
+        self.diff = y - a
+        self.value = np.mean(self.diff**2)
+
+    def backward(self):
+        """
+        Calculates the gradient of the cost.
+
+        This is the final layer of the network so outbound layers
+        are not a concern.
+        """
+        self.gradients[self.inbound_layers[0]] = (2 / self.m) * self.diff
+        self.gradients[self.inbound_layers[1]] = (-2 / self.m) * self.diff
